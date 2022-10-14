@@ -1,0 +1,1 @@
+Hold the shift key and check multiple boxes at same time. This is a very common feature used by multiple email apps like Gmail
