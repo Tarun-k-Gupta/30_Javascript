@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Understanding JavaScript's Capture</title>
+</head>
+<body class="bod">
+
+  <div class="one">
+      <div class="two">
+          <div class="three">
+    </div>
+    </div>
+  </div>
+
+<style>
+  html {
+    box-sizing: border-box;
+  }
+  
+  *, *:before, *:after { 
+    box-sizing: inherit; 
+  }
+
+  div {
+    width: 100%;
+    padding: 100px;
+  }
+
+  .one {
+    background: thistle;
+  }
+
+  .two {
+    background: mistyrose;
+  }
+
+  .three {
+    background: coral;
+  }
+</style>
+
+<button></button>
+<script>
+  const divs = document.querySelectorAll('div');
+  const button = document.querySelector('button');
+
+  function logText(e) {
+    console.log(this.classList.value); //it logs three two one if clicked on innermost box. Reason being all divs are nested, so click on three means click on two and one as well. Also, you might think that body is also clicked so why not its class is printed. Well, we have not added any event listener to body
+    // e.stopPropagation(); // stop bubbling! meaning stop firing the events i.e. only three will be printed this time instead of three two one
+    // console.log(this);
+  }
+
+  divs.forEach(div => div.addEventListener('click', logText, { 
+    capture: false, //if capture is true then the order of firing the events is reverse Eg if clicked on three it logs one two three
+    once: true
+  }));
+
+  button.addEventListener('click', () => {
+    console.log('Click!!!');
+  }, {
+    once: true  //listen to the event only once.
+  });
+
+</script>
+</body>
+</html>
